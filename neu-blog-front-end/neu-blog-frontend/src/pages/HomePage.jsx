@@ -15,7 +15,6 @@ const HomePage = () => {
             if (!token) {
                 console.error('No token found. Redirecting to login.');
                 navigate('/login');
-
                 return;
             }
             try {
@@ -25,12 +24,9 @@ const HomePage = () => {
                         Authorization: `Bearer ${token}`,
                     },
                 });
-
-            
                 if (response.status === 401) {
                     console.error('Unauthorized. Redirecting to login.');
                     navigate('/login');
-
                     return;
                 }
                 const data = await response.json();

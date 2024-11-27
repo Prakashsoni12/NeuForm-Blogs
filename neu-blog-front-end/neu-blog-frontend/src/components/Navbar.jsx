@@ -25,7 +25,11 @@ const Navbar = ({ username, profileImage, onLogout  }) => {
             {/* Right side: User Profile or Auth Buttons */}
             {isLoggedIn ? (
                 <div className="flex items-center space-x-2">
-                    <img src={profileImage} alt="Profile" className="w-10 h-10 rounded-full" />
+                    <img src={profileImage}
+                     alt="Profile" 
+                     className="w-10 h-10 rounded-full"
+                     onClick={() => navigate('/user-details')} // Navigate to User Details
+                      />
                     <span className="text-white">{username}</span>
                     <button
                         onClick={handleLogout}

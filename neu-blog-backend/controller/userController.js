@@ -10,8 +10,21 @@ exports.getAllUsers = async (req, res) => {
         res.json(users);
     } catch (error) {
         res.status(500).json({ error: error.message });
-    }q
+    }
 };
+//get the user details 
+exports.getUserDetails = async (req, res) => {
+    try {
+        const user = await User.findById(req.userId);
+        const userId = req.userId; // Get userId from authenticate middleware
+        console.log('User ID:', userId);
+        if (!user) return res.status(404).json({ error: 'User not found' });
+        res.status(200).json({ user });
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to fetch user details' });
+    }
+};
+
 
 // Get user by ID
 exports.getUserById = async (req, res) => {
@@ -26,28 +39,28 @@ exports.getUserById = async (req, res) => {
 
 // Update user
 exports.updateUser = async (req, res) => {
-    const { name, role, email } = req.body;
     try {
-        const updatedUser = await User.findByIdAndUpdate(
-            req.params.id,
-            { name, role, email },
-            { new: true }
-        );
-        if (!updatedUser) return res.status(404).json({ message: 'User not found' });
-        res.json(updatedUser);
+        const updates = { name: req.body.name, email: req.body.email };
+        if (req.file) updates.profileImage = `/uploads/profiles/${req.file.filename}`;
+
+        const user = await User.findByIdAndUpdate(req.userId, updates, { new: true });
+        if (!user) return res.status(404).json({ error: 'User not found' });
+
+        res.status(200).json(user);
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).json({ error: 'Failed to update user' });
     }
 };
 
 // Delete user
 exports.deleteUser = async (req, res) => {
     try {
-        const deletedUser = await User.findByIdAndDelete(req.params.id);
-        if (!deletedUser) return res.status(404).json({ message: 'User not found' });
-        res.json({ message: 'User deleted successfully' });
+        const user = await User.findByIdAndDelete(req.userId);
+        if (!user) return res.status(404).json({ error: 'User not found' });
+
+        res.status(200).json({ message: 'User deleted successfully' });
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).json({ error: 'Failed to delete user' });
     }
 };
 

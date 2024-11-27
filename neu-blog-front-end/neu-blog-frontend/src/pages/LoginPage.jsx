@@ -23,6 +23,7 @@ const LoginPage = ({ onLogin }) => {
            
             if (response.status === 200) {
                //Save user data to localStorage
+              
                localStorage.setItem('username', data.user.name);
                localStorage.setItem('profileImage', data.user.profileImage);
                localStorage.setItem('token', data.token);

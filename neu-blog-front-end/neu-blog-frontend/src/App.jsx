@@ -8,6 +8,7 @@ import CreateBlogPage from './pages/CreateBlogPage';
 import BlogDetailsPage from './pages/BlogDetailPage';
 import MyBlogsPage from './pages/MyBlogPage';
 import EditBlogPage from './pages/EditBlogPage';
+import UserDetailsPage from './pages/UserDetailsPage';
 function App() {
     const [loggedInUser, setLoggedInUser] = useState(null);
     useEffect(() => {
@@ -70,6 +71,7 @@ function App() {
                 <Route path="/blog/:id" element={<BlogDetailsPage />} />
                 <Route path="/my-blogs" element={<MyBlogsPage />} />
                 <Route path="/edit-blog/:id" element={<EditBlogPage />} />
+                <Route path="/user-details" element={<UserDetailsPage />} />
 
             </Routes>
         </Router>
